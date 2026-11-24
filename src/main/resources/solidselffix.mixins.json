@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.solidselffix.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "SolidRenderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
