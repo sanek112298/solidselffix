@@ -1,0 +1,26 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+
+[[mods]]
+modId = "solidselffix"
+version = "1.0.0"
+displayName = "SolidSelfFix"
+description = "Fixes translucent player and dropped item rendering with shaders on Iris 1.21.1."
+
+[[mixins]]
+config = "solidselffix.mixins.json"
+
+[[dependencies.solidselffix]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.solidselffix]]
+modId = "minecraft"
+type = "required"
+versionRange = ""
+ordering = "NONE"
+side = "CLIENT"
