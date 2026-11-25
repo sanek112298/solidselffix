@@ -38,11 +38,11 @@ public abstract class SolidRenderMixin {
     }
 
     @Inject(
-        method = "text(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;",
+        method = "textSeeThrough(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;",
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void solidselffix$makeTextSolid(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
-        cir.setReturnValue(RenderType.entityCutoutNoCull(location));
+    private static void solidselffix$makeTextSeeThroughSolid(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
+        cir.setReturnValue(RenderType.text(location));
     }
 }
