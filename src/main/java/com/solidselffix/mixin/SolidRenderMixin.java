@@ -1,50 +1,48 @@
 package com.solidselffix.mixin;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.ItemEntityRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = {LivingEntityRenderer.class, PlayerRenderer.class, ItemEntityRenderer.class})
+@Mixin(RenderType.class)
 public abstract class SolidRenderMixin {
 
-    @Redirect(
-        method = "*",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/renderer/RenderType;entityTranslucent(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"
-        ),
-        require = 0
+    @Inject(
+        method = "entityTranslucent(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;",
+        at = @At("HEAD"),
+        cancellable = true
     )
-    private static RenderType solidselffix$redirectEntityTranslucent(ResourceLocation location) {
-        return RenderType.entityCutoutNoCull(location);
+    private static void solidselffix$entityTranslucent1(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
+        cir.setReturnValue(RenderType.entityCutoutNoCull(location));
     }
 
-    @Redirect(
-        method = "*",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/renderer/RenderType;entityTranslucentCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"
-        ),
-        require = 0
+    @Inject(
+        method = "entityTranslucent(Lnet/minecraft/resources/ResourceLocation;Z)Lnet/minecraft/client/renderer/RenderType;",
+        at = @At("HEAD"),
+        cancellable = true
     )
-    private static RenderType solidselffix$redirectEntityTranslucentCull(ResourceLocation location) {
-        return RenderType.entityCutoutNoCull(location);
+    private static void solidselffix$entityTranslucent2(ResourceLocation location, boolean outline, CallbackInfoReturnable<RenderType> cir) {
+        cir.setReturnValue(RenderType.entityCutoutNoCull(location, outline));
     }
 
-    @Redirect(
-        method = "*",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/renderer/RenderType;itemEntityTranslucentCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"
-        ),
-        require = 0
+    @Inject(
+        method = "entityTranslucentCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;",
+        at = @At("HEAD"),
+        cancellable = true
     )
-    private static RenderType solidselffix$redirectItemEntityTranslucent(ResourceLocation location) {
-        return RenderType.entityCutoutNoCull(location);
+    private static void solidselffix$entityTranslucentCull(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
+        cir.setReturnValue(RenderType.entityCutoutNoCull(location));
+    }
+
+    @Inject(
+        method = "itemEntityTranslucentCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private static void solidselffix$itemEntityTranslucentCull(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
+        cir.setReturnValue(RenderType.entityCutoutNoCull(location));
     }
 }
