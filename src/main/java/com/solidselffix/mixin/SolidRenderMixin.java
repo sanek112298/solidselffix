@@ -15,7 +15,7 @@ public abstract class SolidRenderMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void solidselffix$entityTranslucent1(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
+    private static void solidselffix$makeEntityTranslucentSolid(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
         cir.setReturnValue(RenderType.entityCutoutNoCull(location));
     }
 
@@ -24,17 +24,8 @@ public abstract class SolidRenderMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void solidselffix$entityTranslucent2(ResourceLocation location, boolean outline, CallbackInfoReturnable<RenderType> cir) {
+    private static void solidselffix$makeEntityTranslucentOutlineSolid(ResourceLocation location, boolean outline, CallbackInfoReturnable<RenderType> cir) {
         cir.setReturnValue(RenderType.entityCutoutNoCull(location, outline));
-    }
-
-    @Inject(
-        method = "entityTranslucentCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;",
-        at = @At("HEAD"),
-        cancellable = true
-    )
-    private static void solidselffix$entityTranslucentCull(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
-        cir.setReturnValue(RenderType.entityCutoutNoCull(location));
     }
 
     @Inject(
@@ -42,7 +33,16 @@ public abstract class SolidRenderMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void solidselffix$itemEntityTranslucentCull(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
+    private static void solidselffix$makeItemEntitySolid(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
+        cir.setReturnValue(RenderType.entityCutoutNoCull(location));
+    }
+
+    @Inject(
+        method = "text(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private static void solidselffix$makeTextSolid(ResourceLocation location, CallbackInfoReturnable<RenderType> cir) {
         cir.setReturnValue(RenderType.entityCutoutNoCull(location));
     }
 }
