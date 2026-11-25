@@ -17,10 +17,3 @@ type = "required"
 versionRange = "[21.1,)"
 ordering = "NONE"
 side = "CLIENT"
-
-[[dependencies.solidselffix]]
-modId = "minecraft"
-type = "required"
-versionRange = ""
-ordering = "NONE"
-side = "CLIENT"
